@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="author">
+        <createTable tableName="departments">
+            <column name="dept_no" type="char(4)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="dept_name" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location" type="varchar(50)"/>
+        </createTable>
+
+        <createTable tableName="employees">
+            <column name="emp_no" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="birth_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hire_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dept_no" type="char(4)">
+                <constraints nullable="false" foreignKeyName="fk_employee_department"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="dept_emp">
+            <column name="emp_no" type="int">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_dept_emp_employee"/>
+            </column>
+            <column name="dept_no" type="char(4)">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_dept_emp_department"/>
+            </column>
+            <column name="from_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="titles">
+            <column name="emp_no" type="int">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_title_employee"/>
+            </column>
+            <column name="dept_no" type="char(4)">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_title_department"/>
+            </column>
+            <column name="title" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="salaries">
+            <column name="emp_no" type="int">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_salary_employee"/>
+            </column>
+            <column name="dept_no" type="char(4)">
+                <constraints nullable="false" foreignKeyName="fk_salary_department"/>
+            </column>
+            <column name="salary" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="dept_manager">
+            <column name="dept_no" type="char(4)">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_dept_manager_department"/>
+            </column>
+            <column name="emp_no" type="int">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_dept_manager_employee"/>
+            </column>
+            <column name="from_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_date" type="date"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
